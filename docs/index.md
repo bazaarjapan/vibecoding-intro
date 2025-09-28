@@ -1,27 +1,43 @@
 ---
-layout: home
 title: VibeCoding Manual
-hero:
-  name: VibeCoding Manual
-  text: vibecodingの考え方とワークフローをまとめた公式マニュアル
-  tagline: チーム全員で共通の開発リズムを作るためのガイド
-  actions:
-    - theme: brand
-      text: はじめる
-      link: /guide/intro
-    - theme: alt
-      text: GitHub Pagesで公開
-      link: https://github.com/your-account/your-repo
-features:
-  - title: 共通言語
-    details: チーム内で使う用語の定義と役割を整理
-  - title: 実践ガイド
-    details: ケース別にvibecodingを適用する手順を紹介
-  - title: テンプレート
-    details: ドキュメントやレビュー用のテンプレートを共有
+layout: doc
+outline: deep
 ---
 
-```bash
-npm run docs:dev
-```
-でローカルプレビューを開始できます。
+# VibeCoding Manual
+
+[[toc]]
+
+## はじめに
+このマニュアルは vibecoding プロジェクトで開発・運用を進めるメンバーの共通ハブです。初回セットアップから日々のワークフロー、レビュー基準までを１か所で確認できます。まずは下記のクイックスタートに沿って環境を整え、必要な章へ進んでください。
+
+## クイックスタート
+1. リポジトリをクローンし、`npm install` で依存関係を導入します。
+2. ドキュメント編集時は `npm run docs:dev` を実行してホットリロード環境を起動します。
+3. 執筆・レビューが完了したら `npm run docs:build` でビルドを通し、Pull Request に実行コマンドと確認結果を記載します。
+4. GitHub Pages 公開フローは「[デプロイ手順](#github-pages-公開フロー)」を参照し、`main` から生成した内容を `gh-pages` へ反映します。
+
+## サイト構成
+- `ホーム (このページ)` : 主要リンク、ワークフローの概要、最新の運用ルール。
+- `ガイド` : `/guide/intro` から順に読むと背景や考え方が把握できます。
+- `リファレンス` : ツール設定やテンプレート、トラブルシューティングを集約しています。
+- サイドバーは章別に整理されているため、初学者は「入門」セクションから、実務で迷ったときは「実践」セクションを参照してください。
+
+## 主要ドキュメントへの導線
+- [vibecodingとは](/guide/intro) — プロジェクトの目的と共通原則。
+- [マニュアルの読み方](/guide/how-to-use) — 学習順序と更新フロー。
+- [コーディングスタイル](/guide/style-guide) — 命名規則やレビュー観点。
+- [レビューとフィードバック](/guide/review) — Pull Request 運用のベストプラクティス。
+- [FAQ](/guide/faq) — よくある質問と対応策。
+- [リファレンス](/guide/reference) — Codex CLI やテンプレート類の詳細手順。
+
+## Github Pages 公開フロー
+1. `main` ブランチで最新のドキュメントを更新し、ビルドを通します。
+2. CI/CD で `npm run docs:build` の成果物が `docs/.vitepress/dist` に生成されることを確認し、`actions/deploy-pages` が `gh-pages` ブランチへデプロイします。
+3. 初回のみ GitHub の Settings > Pages で公開元を `gh-pages` ブランチ／`root` に設定し、カスタムドメインがある場合は DNS を調整します。
+4. デプロイに失敗したときは Actions のログでエラーを確認し、再実行または Secrets（例: `DOCS_BASE`）の設定漏れを修正してから再デプロイします。
+
+## 更新のすすめ
+- 各章を編集したらこのページのリンクも見直し、必要に応じて導線を増やしてください。
+- 重要な決定事項は `docs/templates/` にドラフトを作成し、レビュー後このページからリンクします。
+- 定期的に「[リファレンス](/guide/reference)」のトラブルシューティングを最新化し、セットアップ手順が現行の CLI バージョンと一致しているか確認しましょう。
